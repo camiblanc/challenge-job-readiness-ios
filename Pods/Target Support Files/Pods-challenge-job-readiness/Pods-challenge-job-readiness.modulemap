@@ -1,0 +1,6 @@
+framework module Pods_challenge_job_readiness {
+  umbrella header "Pods-challenge-job-readiness-umbrella.h"
+
+  export *
+  module * { export * }
+}
