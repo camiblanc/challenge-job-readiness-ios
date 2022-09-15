@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController {
     
     typealias Model = String
     
@@ -39,50 +39,36 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     private func setupTableView() {
         view.addSubview(tableView)
-//        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "thing")
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "thing")
-      }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10//items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
-    
-//        guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
-//        cell.onButtonPressed = { print("celda nro", indexPath.row) }
-        cell.textLabel?.text = "Celda nro \(indexPath.row)"
         
-        return cell
-    }
-
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+      }
 
 }
 
-//extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        10//items.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
-//
-////        guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
-////        cell.onButtonPressed = { print("celda nro", indexPath.row) }
-//        cell.textLabel?.text = "Celda nro \(indexPath.row)"
-//
-//        return cell
-//    }
-//
-//}
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10//items.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
+
+        guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
+        cell.onButtonPressed = { print("celda nro", indexPath.row) }
+        cell.textLabel?.text = "Celda nro \(indexPath.row)"
+
+        return cell
+    }
+
+}
 
 
 
