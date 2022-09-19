@@ -14,6 +14,10 @@
 		DA825A2728CFA00400D51D99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA825A2628CFA00400D51D99 /* HomeViewController.swift */; };
 		DA825A2C28CFA00500D51D99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA825A2B28CFA00500D51D99 /* Assets.xcassets */; };
 		DA825A2F28CFA00500D51D99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA825A2D28CFA00500D51D99 /* LaunchScreen.storyboard */; };
+		DADF568928D634DA00D45753 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568828D634DA00D45753 /* Constants.swift */; };
+		DADF568B28D636C900D45753 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568A28D636C900D45753 /* Service.swift */; };
+		DADF568E28D7BABF00D45753 /* NetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568D28D7BABF00D45753 /* NetworkModels.swift */; };
+		DADF569028D7BB4A00D45753 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568F28D7BB4A00D45753 /* SearchService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		DA825A2B28CFA00500D51D99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA825A2E28CFA00500D51D99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA825A3028CFA00500D51D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DADF568828D634DA00D45753 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DADF568A28D636C900D45753 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		DADF568D28D7BABF00D45753 /* NetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModels.swift; sourceTree = "<group>"; };
+		DADF568F28D7BB4A00D45753 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		FFED7E0CDB8BB03713944DD5 /* Pods-challenge-job-readiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge-job-readiness.release.xcconfig"; path = "Target Support Files/Pods-challenge-job-readiness/Pods-challenge-job-readiness.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +67,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DA480E4228D625540012F8A7 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				DADF568F28D7BB4A00D45753 /* SearchService.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		DA480E4328D6255E0012F8A7 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		DA480E4428D626A40012F8A7 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				DADF568C28D7BAB300D45753 /* Models */,
+				DADF568728D634C300D45753 /* Base */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
 		DA825A1628CFA00400D51D99 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +112,9 @@
 		DA825A2128CFA00400D51D99 /* challenge-job-readiness */ = {
 			isa = PBXGroup;
 			children = (
+				DA480E4428D626A40012F8A7 /* NetworkLayer */,
+				DA480E4328D6255E0012F8A7 /* DetailView */,
+				DA480E4228D625540012F8A7 /* SearchView */,
 				DA825A2228CFA00400D51D99 /* AppDelegate.swift */,
 				DA825A2428CFA00400D51D99 /* SceneDelegate.swift */,
 				DA825A2628CFA00400D51D99 /* HomeViewController.swift */,
@@ -89,6 +124,23 @@
 				DA480E3C28D114E50012F8A7 /* HomeTableViewCell.swift */,
 			);
 			path = "challenge-job-readiness";
+			sourceTree = "<group>";
+		};
+		DADF568728D634C300D45753 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DADF568828D634DA00D45753 /* Constants.swift */,
+				DADF568A28D636C900D45753 /* Service.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		DADF568C28D7BAB300D45753 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DADF568D28D7BABF00D45753 /* NetworkModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,8 +259,12 @@
 			files = (
 				DA825A2728CFA00400D51D99 /* HomeViewController.swift in Sources */,
 				DA825A2328CFA00400D51D99 /* AppDelegate.swift in Sources */,
+				DADF568E28D7BABF00D45753 /* NetworkModels.swift in Sources */,
+				DADF568928D634DA00D45753 /* Constants.swift in Sources */,
 				DA480E3D28D114E50012F8A7 /* HomeTableViewCell.swift in Sources */,
+				DADF569028D7BB4A00D45753 /* SearchService.swift in Sources */,
 				DA825A2528CFA00400D51D99 /* SceneDelegate.swift in Sources */,
+				DADF568B28D636C900D45753 /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DYHZG543WG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "challenge-job-readiness/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -375,6 +432,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DYHZG543WG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "challenge-job-readiness/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
