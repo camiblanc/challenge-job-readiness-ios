@@ -55,9 +55,13 @@ class SearchService {
         self.apiCaller.execute(to: "\(Path.Highlights.byCategory)/\(category)", method: .get, parameters: nil, encoding: JSONEncoding.default, callback: callback)
     }
     
-    private func fetchItems(_ items: HighlightedItemsDTO, callback : @escaping (Result<HighlightedItemsDTO, AFError>) -> Void) {
-        //curl -X GET -H 'Authorization: Bearer $ACCESS_TOKEN' https://api.mercadolibre.com/items?ids=$ITEM_ID1,$ITEM_ID2&attributes=$ATTRIBUTE1,$ATTRIBUTE2,$ATTRIBUTE3
-
+    private func fetchItems(_ items: HighlightedItemsDTO, callback : @escaping (Result<ItemSearchResponse, AFError>) -> Void) {
+        let ids = ["MLA907360785","MLA1127925558", "MLA904752661", "MLA820820504"].joined(separator:",")
+        let attributes = ["id", "title", "secure_thumbnail", "price"].joined(separator:",")
+//        let parameters : [String:Any] = ["ids": ids.joined(separator:","),"attributes": attributes.joined(separator:",")]
+        let path = "\(Path.items)?ids=\(ids)&attributes=\(attributes)"
+        
+        self.apiCaller.execute(to: path , method: .get, parameters: nil, encoding: JSONEncoding.default, callback: callback)
     }
     
 }

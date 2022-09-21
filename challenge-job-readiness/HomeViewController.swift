@@ -45,6 +45,7 @@ class HomeViewController: UIViewController {
         setupNavBar()
         view.backgroundColor = UIColor.secondaryBackground
         setupTableView()
+        searchService.fetchItems(input: "termos")
     }
   
     

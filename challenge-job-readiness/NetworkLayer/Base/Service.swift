@@ -44,20 +44,21 @@ class NetworkService: NetworkServiceProtocol {
             let request =  AF.request(url, method: method.httpMethod, parameters: parameters, encoding: encoding, headers: headers)
             
             /*
+             */
             request.responseJSON { (data) in
-                print("response!!!!!: _____")
-                print(data)
+//                print("response!!!!!: _____")
+//                print(data)
+                debugPrint("url!_________________")
                 print(data.request?.url)
             }
              
-              */
             
             request.response { response in
-//                print("response: _____")
-//                print(response)
-//                let statusCode = response.response?.statusCode
-//                print("status code: ______")
-//                print(statusCode) // the status code
+                print("response: _____")
+                print(response)
+                let statusCode = response.response?.statusCode
+                print("status code: ______")
+                print(statusCode) // the status code
                 
                 switch response.result {
                 case .success(let data):
@@ -99,7 +100,7 @@ class NetworkService: NetworkServiceProtocol {
      failure(Alamofire.AFError.urlRequestValidationFailed(reason: Alamofire.AFError.URLRequestValidationFailureReason.bodyDataInGETRequest(24 bytes)))
      */
     func getAccessToken() -> Void {
-        let token = "APP_USR-3781042954231359-092014-037295ecf3cc638ce1a067a5a79c19e8-187457586" // insert token
+        let token = "APP_USR-3781042954231359-092112-8407eedcef41e47fb96b1164f374f398-187457586" // insert token
         self.accessToken = token
         //        let url = "https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=\(self.appId)&redirect_uri=https://alkemy.org/"
         //         AF.request(url, method: .get).responseJSON { response in
