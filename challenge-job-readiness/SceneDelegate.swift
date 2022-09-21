@@ -76,6 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 }
 
+// TODO: move to a better location
 extension UIColor {
     
     static let primaryColor: UIColor = UIColor(red: 255, green: 230, blue: 0) //rgb(255, 230, 0)
