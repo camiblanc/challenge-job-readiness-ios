@@ -16,29 +16,31 @@ class SearchService {
     
     private var apiCaller = NetworkService.shared
     
-    func fetchItems(input : String){
-        // fetch a suitable category
+    func fetchItems(input : String) -> Void {
+        // find a suitable category
         self.fetchCategory(search: input) { response in
             switch response {
-            case .success(let sthg):
-                //search top 20
-                print("doneee____")
-                print(sthg)
-                //                let category = activity.first?.categoryID
-                //                guard !category!.isEmpty else {
-                //                    return
-                //                }
-                //                self.fetchTopProduct(search: category!) { result2 in
-                //                    switch result2 {
-                //                    case.success(let categorys) :
-                //                        print(categorys.content.first)
-                //                    case .failure(let error2) :
-                //                        print(error2)
-                //                    }
-                //                }
+            case .success(let data):
+                //search highlighteds
+                let category = data.first?.categoryID
+                guard !category!.isEmpty else {
+                    // TODO: throw ERROR NO CATEGORY FOUND 404
+                    return
+                }
+                self.fetchHighlighteds(category: category!) { highlighteds in
+                    switch highlighteds {
+                    case.success(let highlitedObjects) :
+                        self.fetchItems(highlitedObjects) { items in
+                            // finally get a filtered list of items
+                            debugPrint(items)
+                        }
+                    case .failure(let error2) :
+                        debugPrint(error2)
+                    }
+                }
                 break
             case .failure(let error):
-                print(error.localizedDescription)
+                debugPrint(error.localizedDescription)
             }
         }
     }
@@ -46,11 +48,16 @@ class SearchService {
     private func fetchCategory(search : String, callback : @escaping (Result<SearchDomainResponse, AFError>) -> Void) -> Void {
         
         
-        self.apiCaller.execute(to: "\(Path.SearchDomain.domainDiscovery)\(search)", method: .get, parameters: nil, encoding: JSONEncoding.default , callback: callback)
+        self.apiCaller.execute(to: "\(Path.Sites.domainDiscovery)\(search)", method: .get, parameters: nil, encoding: JSONEncoding.default , callback: callback)
     }
     
-    //    private func fetchTopProduct(search : String, callback : @escaping (Result<Category, Error>) -> Void) -> Void{
-    //        self._restClient.call(.get, "highlights/MLA/category/\(search)", callback: callback)
-    //    }
+    private func fetchHighlighteds(category : String, callback : @escaping (Result<HighlightedItemsDTO, AFError>) -> Void) -> Void{
+        self.apiCaller.execute(to: "\(Path.Highlights.byCategory)/\(category)", method: .get, parameters: nil, encoding: JSONEncoding.default, callback: callback)
+    }
+    
+    private func fetchItems(_ items: HighlightedItemsDTO, callback : @escaping (Result<HighlightedItemsDTO, AFError>) -> Void) {
+        //curl -X GET -H 'Authorization: Bearer $ACCESS_TOKEN' https://api.mercadolibre.com/items?ids=$ITEM_ID1,$ITEM_ID2&attributes=$ATTRIBUTE1,$ATTRIBUTE2,$ATTRIBUTE3
+
+    }
     
 }

@@ -9,17 +9,21 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    typealias Model = String
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        
+        return searchBar
+    }()
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    private var items = [Model]()
-    
-    lazy var tableView: UITableView = UITableView()
-    
-    let searchService: SearchService = SearchService.shared
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("loaded")
         setupView()
     }
     
@@ -29,49 +33,33 @@ class HomeViewController: UIViewController {
     //        //fetch data-----------------
     //      }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
-    }
-    
-    
     private func setupView() {
-        setupTableView()
-        searchService.fetchItems(input: "termos")
+        setupNavBar()
+        view.backgroundColor = UIColor.secondaryBackground
+        
+    }
+  
+    
+    private func setupNavBar() {
+        navigationItem.titleView = searchBar
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(onCartBeenPressed))
     }
     
-    private func setupTableView() {
-        view.addSubview(tableView)
-        tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "thing")
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
     
+    @objc private func onCartBeenPressed() {
+        print("Cart has been pressed!")
+    }
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController: UISearchBarDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10//items.count
+    //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //        print("Text Did Change to:", searchText)
+    //        //TODO: predict category
+    //    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { // called when keyboard search button pressed
+        // call next view and show list of results
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
-        
-        guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
-        cell.onButtonPressed = { print("celda nro", indexPath.row) }
-        cell.textLabel?.text = "Celda nro \(indexPath.row)"
-        
-        return cell
-    }
-    
 }
-
-
 

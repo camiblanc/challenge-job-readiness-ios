@@ -18,6 +18,10 @@
 		DADF568B28D636C900D45753 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568A28D636C900D45753 /* Service.swift */; };
 		DADF568E28D7BABF00D45753 /* NetworkModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568D28D7BABF00D45753 /* NetworkModels.swift */; };
 		DADF569028D7BB4A00D45753 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF568F28D7BB4A00D45753 /* SearchService.swift */; };
+		DADF569528DAAA5900D45753 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF569428DAAA5900D45753 /* SearchViewController.swift */; };
+		DADF569728DAAB6B00D45753 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF569628DAAB6B00D45753 /* DetailViewController.swift */; };
+		DADF569928DAAB8000D45753 /* DetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF569828DAAB8000D45753 /* DetailService.swift */; };
+		DADF569B28DB251400D45753 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF569A28DB251400D45753 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 		DADF568A28D636C900D45753 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		DADF568D28D7BABF00D45753 /* NetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkModels.swift; sourceTree = "<group>"; };
 		DADF568F28D7BB4A00D45753 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		DADF569428DAAA5900D45753 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		DADF569628DAAB6B00D45753 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DADF569828DAAB8000D45753 /* DetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailService.swift; sourceTree = "<group>"; };
+		DADF569A28DB251400D45753 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FFED7E0CDB8BB03713944DD5 /* Pods-challenge-job-readiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge-job-readiness.release.xcconfig"; path = "Target Support Files/Pods-challenge-job-readiness/Pods-challenge-job-readiness.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				DADF568F28D7BB4A00D45753 /* SearchService.swift */,
+				DADF569428DAAA5900D45753 /* SearchViewController.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -78,6 +87,8 @@
 		DA480E4328D6255E0012F8A7 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				DADF569628DAAB6B00D45753 /* DetailViewController.swift */,
+				DADF569828DAAB8000D45753 /* DetailService.swift */,
 			);
 			path = DetailView;
 			sourceTree = "<group>";
@@ -112,6 +123,7 @@
 		DA825A2128CFA00400D51D99 /* challenge-job-readiness */ = {
 			isa = PBXGroup;
 			children = (
+				DADF569128DA569000D45753 /* Models */,
 				DA480E4428D626A40012F8A7 /* NetworkLayer */,
 				DA480E4328D6255E0012F8A7 /* DetailView */,
 				DA480E4228D625540012F8A7 /* SearchView */,
@@ -139,6 +151,14 @@
 			isa = PBXGroup;
 			children = (
 				DADF568D28D7BABF00D45753 /* NetworkModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DADF569128DA569000D45753 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DADF569A28DB251400D45753 /* Item.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,10 +280,14 @@
 				DA825A2728CFA00400D51D99 /* HomeViewController.swift in Sources */,
 				DA825A2328CFA00400D51D99 /* AppDelegate.swift in Sources */,
 				DADF568E28D7BABF00D45753 /* NetworkModels.swift in Sources */,
+				DADF569528DAAA5900D45753 /* SearchViewController.swift in Sources */,
+				DADF569B28DB251400D45753 /* Item.swift in Sources */,
 				DADF568928D634DA00D45753 /* Constants.swift in Sources */,
 				DA480E3D28D114E50012F8A7 /* HomeTableViewCell.swift in Sources */,
 				DADF569028D7BB4A00D45753 /* SearchService.swift in Sources */,
+				DADF569728DAAB6B00D45753 /* DetailViewController.swift in Sources */,
 				DA825A2528CFA00400D51D99 /* SceneDelegate.swift in Sources */,
+				DADF569928DAAB8000D45753 /* DetailService.swift in Sources */,
 				DADF568B28D636C900D45753 /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

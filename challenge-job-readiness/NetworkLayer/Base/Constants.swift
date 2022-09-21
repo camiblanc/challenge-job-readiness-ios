@@ -23,16 +23,22 @@ enum RestMethod {
 }
 
 enum Path {
+    enum BASE {
+        public static let URL = "https://api.mercadolibre.com/"
+        public static let AUTH_URL = "https://auth.mercadolibre.com.ar/authorization"
+        public static let OAUTH = "oauth/token"
+        public static let REDIRECT_URI = "https://alkemy.com"
+    }
     
-    public static let BASE_URL = "https://api.mercadolibre.com/"
-    public static let OAUTH = "oauth/token"
-    enum SearchDomain {
+    enum Sites {
         public static let domainDiscovery = "sites/MLA/domain_discovery/search?limit=1&q="
     }
-    enum SearchCategory {
-        public static let searchMovie = "highlights/MLA/category/"
-        public static let imageBaseUrl = "https://image.tmdb.org/t/p/w500"
+    enum Highlights {
+        public static let byCategory = "highlights/MLA/category"
     }
+
+    public static let items = "items"
+
 }
 
 //enum Keys {

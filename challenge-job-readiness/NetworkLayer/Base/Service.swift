@@ -16,7 +16,7 @@ class NetworkService: NetworkServiceProtocol {
     
     private let appId = ProcessInfo.processInfo.environment["APP_ID"]
     private var accessToken: String?
-    private var TGCode: String = ""
+    private var TGCode: String?
     
     public static let shared: NetworkServiceProtocol = {
         var service = NetworkService()
@@ -29,54 +29,40 @@ class NetworkService: NetworkServiceProtocol {
         parameters: [String:Any]? = nil,
         encoding: ParameterEncoding = JSONEncoding.default,
         callback: @escaping (Result<T, AFError>) -> Void) -> Void {
-            
+            // TODO: add do catch to throw error if could not get access token
             if self.accessToken == nil {
-                self.renewAccessToken()
+                self.getAccessToken()
             }
             
-            let url = Path.BASE_URL + path
-            debugPrint("access tokennn:____\(self.accessToken ?? "")")
-            let headers = HTTPHeaders(["Authentication" : "Bearer \(self.accessToken ?? "")"])
+            let url = Path.BASE.URL + path
+            
+            let headers = HTTPHeaders(["Authorization" : "Bearer \(self.accessToken ?? "")"])
+            
+            print("headersssssss")
+            print(headers)
             
             let request =  AF.request(url, method: method.httpMethod, parameters: parameters, encoding: encoding, headers: headers)
             
-//            AF.request("https://opentdb.com/api_category.php")
-//            request.responseJSON { (data) in
-//                do {
-//                    let categories = try
-//            JSONDecoder().decode(Categories.self, from: data.data!)
-//                    print(categories.trivia_categories)
-//                } catch {
-//                    print(error)
-//            } }
-            
-            /**
-             case .success(let data):
-                   do {
-                       let postBody = try JSONDecoder().decode(PostBody.self, from: data)
-                       print(postBody.responsePayload.statusData.statusCode)
-                       print(postBody.responsePayload.statusData.documents.map { $0.docname })
-                    } catch {
-                        print(error)
-                    }
-             */
-            
+            /*
             request.responseJSON { (data) in
-                
-                    print("response!!!!!: _____")
+                print("response!!!!!: _____")
                 print(data)
+                print(data.request?.url)
             }
+             
+              */
             
             request.response { response in
-                print("response: _____")
-                print(response)
-                let statusCode = response.response?.statusCode
-                print("status code: ______")
-                print(statusCode) // the status code
+//                print("response: _____")
+//                print(response)
+//                let statusCode = response.response?.statusCode
+//                print("status code: ______")
+//                print(statusCode) // the status code
+                
                 switch response.result {
                 case .success(let data):
-                    print("dataa: _____")
-                    print(data)
+//                    print("dataa: _____")
+//                    print(data)
                     do {
                         if let codedData = data {
                             let result = try JSONDecoder().decode(T.self, from: codedData)
@@ -84,12 +70,23 @@ class NetworkService: NetworkServiceProtocol {
                             callback(.success(result))
                         }
                     } catch {
-                        print("entro aca")
+                        // return error of type ParameterEncodingFailureReason
+                        print("hubo error de encoding")
                         callback(.failure(AFError.parameterEncodingFailed(reason: AFError.ParameterEncodingFailureReason.customEncodingFailed(error: error) )))
                     }
                 case .failure(let error):
                     print("error: _____")
                     print(error)
+                    
+                    // TODO: validate if error code  is 401 and retry
+                    /* {
+                        "message": "invalid_token",
+                        "error": "not_found",
+                        "status": 401,
+                        "cause": []
+                     }
+                     */
+                    // retryExe()
 
                     callback(.failure(error))
                 }
@@ -101,8 +98,8 @@ class NetworkService: NetworkServiceProtocol {
      Renew API credentials when error is:
      failure(Alamofire.AFError.urlRequestValidationFailed(reason: Alamofire.AFError.URLRequestValidationFailureReason.bodyDataInGETRequest(24 bytes)))
      */
-    func renewAccessToken() -> Void {
-        let token = "" // insert token
+    func getAccessToken() -> Void {
+        let token = "APP_USR-3781042954231359-092014-037295ecf3cc638ce1a067a5a79c19e8-187457586" // insert token
         self.accessToken = token
         //        let url = "https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=\(self.appId)&redirect_uri=https://alkemy.org/"
         //         AF.request(url, method: .get).responseJSON { response in
@@ -111,4 +108,13 @@ class NetworkService: NetworkServiceProtocol {
         //
         
     }
+    
+//    func retryExe<T: Codable>(
+//            to path: String,
+//            method: RestMethod = .get,
+//            parameters: [String:Any]? = nil,
+//            encoding: ParameterEncoding = JSONEncoding.default,
+//            callback: @escaping (Result<T, AFError>) -> Void) -> Void {
+//        //get new access token and call execute
+//    }
 }
