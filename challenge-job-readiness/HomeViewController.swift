@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
         setupNavBar()
         view.backgroundColor = UIColor.secondaryBackground
         setupTableView()
-        searchService.fetchItems(input: "termos")
+        
     }
   
     
@@ -78,23 +78,41 @@ extension HomeViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { // called when keyboard search button pressed
         // call next view and show list of results
+        guard let text = searchBar.text else { return }
+        searchService.fetchItems(input: text ) { items in
+            self.items = items.map({$0.fromDTO()})
+            self.tableView.reloadData()
+        }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+           searchBar.searchTextField.text = ""
+           searchBar.resignFirstResponder()
+       }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10//items.count
+        items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.itemId, for: indexPath)
         guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
-        cell.onButtonPressed = { print("celda nro", indexPath.row) }
-        cell.textLabel?.text = "Celda nro \(indexPath.row)"
-        
+        let currentItem = items[indexPath.row]
+        cell.item = currentItem
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            let item = self.items[indexPath.item]
+            
+//          navigate to next view and pass item id
+//            let detailViewController = DetailViewController()
+//            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
 
 }

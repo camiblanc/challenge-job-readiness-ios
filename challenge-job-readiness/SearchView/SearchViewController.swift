@@ -31,7 +31,7 @@ class SearchViewController: UIViewController {
     
     private func setupView() {
         setupTableView()
-        searchService.fetchItems(input: "termos")
+//        searchService.fetchItems(input: "termos")
     }
     
     private func setupTableView() {
@@ -56,13 +56,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "thing", for: indexPath)
+
         
-        guard let cell = cell as? HomeTableViewCell else { return UITableViewCell() }
-        cell.onButtonPressed = { print("celda nro", indexPath.row) }
-        cell.textLabel?.text = "Celda nro \(indexPath.row)"
-        
-        return cell
+        return UITableViewCell()
     }
 
 }

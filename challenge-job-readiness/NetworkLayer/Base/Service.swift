@@ -38,32 +38,12 @@ class NetworkService: NetworkServiceProtocol {
             
             let headers = HTTPHeaders(["Authorization" : "Bearer \(self.accessToken ?? "")"])
             
-            print("headersssssss")
-            print(headers)
-            
             let request =  AF.request(url, method: method.httpMethod, parameters: parameters, encoding: encoding, headers: headers)
-            
-            /*
-             */
-            request.responseJSON { (data) in
-//                print("response!!!!!: _____")
-//                print(data)
-                debugPrint("url!_________________")
-                print(data.request?.url)
-            }
              
             
             request.response { response in
-                print("response: _____")
-                print(response)
-                let statusCode = response.response?.statusCode
-                print("status code: ______")
-                print(statusCode) // the status code
-                
                 switch response.result {
                 case .success(let data):
-//                    print("dataa: _____")
-//                    print(data)
                     do {
                         if let codedData = data {
                             let result = try JSONDecoder().decode(T.self, from: codedData)
@@ -76,8 +56,9 @@ class NetworkService: NetworkServiceProtocol {
                         callback(.failure(AFError.parameterEncodingFailed(reason: AFError.ParameterEncodingFailureReason.customEncodingFailed(error: error) )))
                     }
                 case .failure(let error):
-                    print("error: _____")
-                    print(error)
+//                    print("error: _____")
+//                    print(error)
+                    callback(.failure(AFError.createURLRequestFailed(error: AFError.invalidURL(url: error.url!))))
                     
                     // TODO: validate if error code  is 401 and retry
                     /* {
@@ -100,7 +81,7 @@ class NetworkService: NetworkServiceProtocol {
      failure(Alamofire.AFError.urlRequestValidationFailed(reason: Alamofire.AFError.URLRequestValidationFailureReason.bodyDataInGETRequest(24 bytes)))
      */
     func getAccessToken() -> Void {
-        let token = "APP_USR-3781042954231359-092112-8407eedcef41e47fb96b1164f374f398-187457586" // insert token
+        let token = "APP_USR-3781042954231359-092208-b3e8633d8007a58b25a59c8022b0ddf0-187457586" // insert token
         self.accessToken = token
         //        let url = "https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=\(self.appId)&redirect_uri=https://alkemy.org/"
         //         AF.request(url, method: .get).responseJSON { response in

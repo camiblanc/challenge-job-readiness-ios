@@ -6,7 +6,7 @@
 //
 
 import Foundation
- 
+
 // MARK: - OAuth Response
 struct OAuth: Codable {
     let accessToken, tokenType: String
@@ -14,7 +14,7 @@ struct OAuth: Codable {
     let scope: String
     let userID: Int
     let refreshToken: String
-
+    
     enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case tokenType = "token_type"
@@ -29,7 +29,7 @@ struct OAuth: Codable {
 struct SearchDomainDTO: Codable {
     let domainID, domainName, categoryID, categoryName: String
     let attributes: [SDAttribute]
-
+    
     enum CodingKeys: String, CodingKey {
         case domainID = "domain_id"
         case domainName = "domain_name"
@@ -41,7 +41,7 @@ struct SearchDomainDTO: Codable {
 
 struct SDAttribute: Codable {
     let id, name, valueID, valueName: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name
         case valueID = "value_id"
@@ -57,7 +57,7 @@ typealias SearchDomainResponse = [SearchDomainDTO]
 struct HighlightedItemsDTO: Codable {
     let queryData: HIQueryData
     let content: [HIContent]
-
+    
     enum CodingKeys: String, CodingKey {
         case queryData = "query_data"
         case content
@@ -67,17 +67,17 @@ struct HighlightedItemsDTO: Codable {
 struct HIContent: Codable {
     let id: String
     let position: Int
-    let type: TypeEnum
+    let type: HITypeEnum
 }
 
-enum TypeEnum: String, Codable {
+enum HITypeEnum: String, Codable {
     case item = "ITEM"
     case product = "PRODUCT"
 }
 
 struct HIQueryData: Codable {
     let highlightType, criteria, id: String
-
+    
     enum CodingKeys: String, CodingKey {
         case highlightType = "highlight_type"
         case criteria, id
@@ -88,6 +88,16 @@ struct HIQueryData: Codable {
 struct ItemsSearchDTO: Codable {
     let code: Int
     let body: ItemsSearchBody
+    
+    func fromDTO() -> Item {
+        
+        return Item(
+            id: self.body.id,
+            title: self.body.title,
+            secure_thumbnail: self.body.secureThumbnail,
+            price: self.body.price
+        )
+    }
 }
 
 // MARK: - Body
@@ -95,7 +105,7 @@ struct ItemsSearchBody: Codable {
     let id, title: String
     let price: Double
     let secureThumbnail: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id, title, price
         case secureThumbnail = "secure_thumbnail"
@@ -103,3 +113,29 @@ struct ItemsSearchBody: Codable {
 }
 
 typealias ItemSearchResponse = [ItemsSearchDTO]
+
+
+// MARK: - DetailDTO
+struct DetailDTO: Codable {
+    let text, plainText, lastUpdated, dateCreated: String
+    let snapshot: ItemDetailSnapshot
+    
+    enum CodingKeys: String, CodingKey {
+        case text
+        case plainText = "plain_text"
+        case lastUpdated = "last_updated"
+        case dateCreated = "date_created"
+        case snapshot
+    }
+    
+    func fromDTO(id: String) -> ItemDetail {
+        return ItemDetail(id: id , description: text)
+    }
+}
+
+// MARK: - Snapshot
+struct ItemDetailSnapshot: Codable {
+    let url: String
+    let width, height: Int
+    let status: String
+}

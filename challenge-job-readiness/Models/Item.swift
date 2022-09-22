@@ -9,7 +9,7 @@ import Foundation
 
 struct Item {
     let id, title, secure_thumbnail: String
-    let price: Int
+    let price: Double
 }
 
 struct ItemDetail {

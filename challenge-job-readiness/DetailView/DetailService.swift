@@ -6,3 +6,6 @@
 //
 
 import Foundation
+
+//https://api.mercadolibre.com/items/$ITEM_ID/description
+
